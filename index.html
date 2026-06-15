@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI × DNA Hackathon 2026 — Francis Crick Institute</title>
+  <meta name="description" content="A two-day hackathon exploring generative AI tools for genomics and DNA at the Francis Crick Institute, London. 6–7 July 2026.">
+  <meta property="og:title" content="AI × DNA Hackathon 2026">
+  <meta property="og:description" content="Two days exploring generative AI for genomics and DNA at the Crick. 6–7 July 2026, London.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: rgba(255, 255, 255, 0.025);
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --text: #fafafa;
+      --muted: #71717a;
+      --muted-light: #a1a1aa;
+      --accent: #818cf8;
+      --accent-dim: rgba(129, 140, 248, 0.15);
+      --cyan: #67e8f9;
+      --cyan-dim: rgba(103, 232, 249, 0.12);
+      --green: #34d399;
+      --orange: #fb923c;
+      --red: #f87171;
+      --amber: #fbbf24;
+      --zinc: #3f3f46;
+      --violet: #a78bfa;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Layout ── */
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Nav ── */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 9, 11, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0.875rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Pills / Badges ── */
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      color: var(--muted-light);
+      white-space: nowrap;
+    }
+
+    .pill-dot::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .pill-accent {
+      border-color: rgba(129, 140, 248, 0.25);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── Hero ── */
+
+    .hero {
+      padding: 7rem 0 5.5rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-eyebrow svg {
+      opacity: 0.5;
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 7vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(160deg, #ffffff 30%, rgba(255, 255, 255, 0.45) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 440px;
+      margin: 0 auto 2.75rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Sections ── */
+
+    .section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.625rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      color: var(--muted-light);
+      line-height: 1.75;
+    }
+
+    /* ── Cards ── */
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.18s;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.875rem;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 0.75rem;
+    }
+
+    /* ── Overview ── */
+
+    .overview-text {
+      max-width: 660px;
+    }
+
+    .overview-text p {
+      font-size: 0.9375rem;
+    }
+
+    /* ── Tracks ── */
+
+    .track-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.175rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .track-set {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+
+    .track-open {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border: 1px solid rgba(103, 232, 249, 0.2);
+    }
+
+    .track-list {
+      list-style: none;
+      margin-top: 0.75rem;
+    }
+
+    .track-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--muted-light);
+      padding: 0.275rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .track-list li:last-child {
+      border-bottom: none;
+    }
+
+    .track-list li::before {
+      content: '→';
+      color: var(--muted);
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      margin-top: 0.075em;
+    }
+
+    /* ── Speakers ── */
+
+    .speaker-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.125rem;
+      transition: border-color 0.18s;
+    }
+
+    .speaker-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .speaker-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .speaker-org {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── Schedule ── */
+
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.2rem;
+      width: fit-content;
+      margin-bottom: 1.75rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0.4rem 1.125rem;
+      border-radius: 5px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      font-family: var(--font);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .tab-btn:hover:not(.active) {
+      color: var(--muted-light);
+    }
+
+    .schedule-panel {
+      display: none;
+    }
+
+    .schedule-panel.active {
+      display: block;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.875rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 4.25rem 1fr;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .tl-time {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding-top: 0.15em;
+      white-space: nowrap;
+    }
+
+    .tl-content {
+      padding-left: 0.875rem;
+      border-left: 2px solid transparent;
+    }
+
+    .tl-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .tl-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    [data-type="talk"]     .tl-content { border-left-color: var(--accent); }
+    [data-type="break"]    .tl-content { border-left-color: var(--zinc); }
+    [data-type="food"]     .tl-content { border-left-color: var(--green); }
+    [data-type="social"]   .tl-content { border-left-color: var(--orange); }
+    [data-type="deadline"] .tl-content { border-left-color: var(--red); }
+    [data-type="hackathon"] .tl-content { border-left-color: var(--cyan); }
+    [data-type="pitch"]    .tl-content { border-left-color: var(--violet); }
+    [data-type="tutorial"] .tl-content { border-left-color: var(--cyan); }
+    [data-type="demo"]     .tl-content { border-left-color: var(--green); }
+    [data-type="prize"]    .tl-content { border-left-color: var(--amber); }
+
+    /* ── Venue ── */
+
+    .venue-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 420px;
+      margin-top: 1.5rem;
+      transition: border-color 0.18s;
+    }
+
+    .venue-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .venue-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .venue-address {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.125rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .link-btn:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Footer ── */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    /* ── Responsive ── */
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 4rem 0 3.5rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-tagline {
+        font-size: 0.9375rem;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-5 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 3.75rem 1fr;
+        gap: 0.625rem;
+      }
+
+      .tl-time {
+        font-size: 0.6875rem;
+      }
+
+      .tabs {
+        width: 100%;
+      }
+
+      .tab-btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">AI × DNA</a>
+    <span class="pill">6–7 Jul 2026</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Francis Crick Institute · London
+      </div>
+      <h1>AI × DNA<br>Hackathon</h1>
+      <p class="hero-tagline">
+        Two days exploring generative AI for genomics and DNA — centred on the Alphagenome API.
+      </p>
+      <div class="hero-badges">
+        <span class="pill pill-dot">6–7 July 2026</span>
+        <span class="pill">Seminar Suites, Crick</span>
+        <span class="pill pill-accent">Alphagenome API</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Overview ── -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="section-label">Overview</p>
+      <h2>About the event</h2>
+      <div class="overview-text" style="margin-top: 1.25rem;">
+        <p>
+          This Crick-funded hackathon focuses on the practical application of generative AI to biological
+          challenges in DNA and genomics. It features two participation tracks — a
+          <span style="color: var(--text); font-weight: 500;">Set Problem Track</span> with predefined genomics
+          challenges built around the Alphagenome API, and an
+          <span style="color: var(--text); font-weight: 500;">Open Innovation Track</span> where participants
+          tackle their own biological questions with greater freedom to combine tools.
+        </p>
+        <br>
+        <p>
+          The event brings together staff and students from Crick partner universities (UCL, King's, Imperial)
+          and external participants, fostering collaboration between AI researchers and biologists.
+          The goal is to showcase the potential of AI in genomics while enabling beginners to integrate
+          tools like Alphagenome into their research workflows.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tracks ── -->
+  <section class="section" id="tracks">
+    <div class="container">
+      <p class="section-label">Participation</p>
+      <h2>Two tracks</h2>
+      <div class="grid-2" style="margin-top: 1.5rem;">
+        <div class="card">
+          <div class="track-tag track-set">Set Problem</div>
+          <h3>Set Problem Track</h3>
+          <ul class="track-list">
+            <li>2–3 predefined DNA or genomics challenges</li>
+            <li>Designed around the Alphagenome API</li>
+            <li>Guided structure with support available</li>
+            <li>Ideal for beginners and structured solvers</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="track-tag track-open">Open Innovation</div>
+          <h3>Open Innovation Track</h3>
+          <ul class="track-list">
+            <li>Bring your own biological question</li>
+            <li>Combine Alphagenome with other tools</li>
+            <li>Full creative and methodological freedom</li>
+            <li>Ideal for independent research problems</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Speakers ── -->
+  <section class="section" id="speakers">
+    <div class="container">
+      <p class="section-label">Day 1 Keynotes</p>
+      <h2>Speakers</h2>
+      <div class="grid-5" style="margin-top: 1.5rem;">
+        <div class="speaker-card">
+          <div class="speaker-name">Žiga Avsec</div>
+          <div class="speaker-org">DeepMind</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-name">Vanessa Sancho-Shimizu</div>
+          <div class="speaker-org">Imperial College London</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-name">Greg Findlay</div>
+          <div class="speaker-org">Francis Crick Institute</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-name">Michael Simpson</div>
+          <div class="speaker-org">King's College London</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-name">Jasmin Fisher</div>
+          <div class="speaker-org">UCL</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Schedule ── -->
+  <section class="section" id="schedule">
+    <div class="container">
+      <p class="section-label">Programme</p>
+      <h2>Schedule</h2>
+
+      <div style="margin-top: 1.5rem;">
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('day1', this)">Mon 6 July</button>
+          <button class="tab-btn" onclick="switchTab('day2', this)">Tue 7 July</button>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--accent)"></div>Talk
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--violet)"></div>Pitches
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--cyan)"></div>Tutorial / Hacking
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--green)"></div>Food
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--orange)"></div>Networking
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--red)"></div>Deadline
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--amber)"></div>Ceremony
+          </div>
+        </div>
+
+        <!-- Day 1 -->
+        <div id="day1" class="schedule-panel active">
+          <div class="timeline">
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">09:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Welcome</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">09:15</span>
+              <div class="tl-content">
+                <div class="tl-title">Žiga Avsec</div>
+                <div class="tl-sub">DeepMind</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">09:45</span>
+              <div class="tl-content">
+                <div class="tl-title">Vanessa Sancho-Shimizu</div>
+                <div class="tl-sub">Imperial College London</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">10:15</span>
+              <div class="tl-content">
+                <div class="tl-title">Greg Findlay</div>
+                <div class="tl-sub">Francis Crick Institute</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="break">
+              <span class="tl-time">10:45</span>
+              <div class="tl-content">
+                <div class="tl-title">Break</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">11:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Michael Simpson</div>
+                <div class="tl-sub">King's College London</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="talk">
+              <span class="tl-time">11:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Jasmin Fisher</div>
+                <div class="tl-sub">UCL</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="pitch">
+              <span class="tl-time">12:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Project Pitches</div>
+                <div class="tl-sub">5–7 teams · 5 minutes each</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="food">
+              <span class="tl-time">12:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Lunch &amp; Team Formation</div>
+                <div class="tl-sub">Networking lunch</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="tutorial">
+              <span class="tl-time">13:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Alphagenome Tutorial</div>
+                <div class="tl-sub">API walkthrough and tools introduction</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="hackathon">
+              <span class="tl-time">14:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Hackathon Begins</div>
+                <div class="tl-sub">Help desk available · one table for questions</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="social">
+              <span class="tl-time">18:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Networking &amp; Drinks</div>
+                <div class="tl-sub">Informal networking and community building</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="break">
+              <span class="tl-time">21:00</span>
+              <div class="tl-content">
+                <div class="tl-title">End of Day 1</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div id="day2" class="schedule-panel">
+          <div class="timeline">
+            <div class="timeline-item" data-type="hackathon">
+              <span class="tl-time">09:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Hacking Continues</div>
+                <div class="tl-sub">Continued development · lunch included</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="deadline">
+              <span class="tl-time">15:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Submission Deadline</div>
+                <div class="tl-sub">Submit slides</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="demo">
+              <span class="tl-time">15:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Demo Session</div>
+                <div class="tl-sub">Team demonstrations</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="prize">
+              <span class="tl-time">17:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Prize Ceremony</div>
+                <div class="tl-sub">Prizes and awards</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="break">
+              <span class="tl-time">18:00</span>
+              <div class="tl-content">
+                <div class="tl-title">Event Close</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Venue ── -->
+  <section class="section" id="venue">
+    <div class="container">
+      <p class="section-label">Location</p>
+      <h2>Venue</h2>
+      <div class="venue-card">
+        <div class="venue-name">Francis Crick Institute</div>
+        <div class="venue-address">
+          Seminar Suites<br>
+          1 Midland Road<br>
+          London NW1 1AT
+        </div>
+        <a
+          href="https://maps.google.com/?q=Francis+Crick+Institute,+1+Midland+Road,+London+NW1+1AT"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-btn"
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Open in Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Organisers ── -->
+  <section class="section" id="organisers">
+    <div class="container">
+      <p class="section-label">Team</p>
+      <h2>Organisers</h2>
+      <div class="grid-3" style="margin-top: 1.5rem; max-width: 560px;">
+        <div class="card">
+          <h3>Marc Amil</h3>
+          <p style="font-size: 0.8125rem; color: var(--muted);">Francis Crick Institute</p>
+        </div>
+        <div class="card">
+          <h3>Fabian Frohlich</h3>
+          <p style="font-size: 0.8125rem; color: var(--muted);">Francis Crick Institute</p>
+        </div>
+        <div class="card">
+          <h3>Aleksej Zelezniak</h3>
+          <p style="font-size: 0.8125rem; color: var(--muted);">Francis Crick Institute</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p class="footer-text">
+      Funded by the Francis Crick Institute Partnership Networking Fund.<br>
+      <span style="opacity: 0.45;">AI × DNA Hackathon · London · July 2026</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  function switchTab(day, btn) {
+    document.querySelectorAll('.schedule-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(day).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
