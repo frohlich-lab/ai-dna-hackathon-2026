@@ -24,12 +24,9 @@
       --cyan: #67e8f9;
       --cyan-dim: rgba(103, 232, 249, 0.12);
       --green: #34d399;
-      --orange: #fb923c;
       --red: #f87171;
       --amber: #fbbf24;
       --zinc: #3f3f46;
-      --violet: #a78bfa;
-      --pink: #f472b6;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
     }
@@ -355,12 +352,12 @@
     [data-type="talk"]     .tl-content { border-left-color: var(--accent); }
     [data-type="break"]    .tl-content { border-left-color: var(--zinc); }
     [data-type="food"]     .tl-content { border-left-color: var(--green); }
-    [data-type="social"]   .tl-content { border-left-color: var(--orange); }
+    [data-type="social"]   .tl-content { border-left-color: var(--green); }
     [data-type="deadline"] .tl-content { border-left-color: var(--red); }
     [data-type="hackathon"] .tl-content { border-left-color: var(--cyan); }
-    [data-type="pitch"]    .tl-content { border-left-color: var(--violet); }
+    [data-type="pitch"]    .tl-content { border-left-color: var(--accent); }
     [data-type="tutorial"] .tl-content { border-left-color: var(--cyan); }
-    [data-type="demo"]     .tl-content { border-left-color: var(--pink); }
+    [data-type="demo"]     .tl-content { border-left-color: var(--accent); }
     [data-type="prize"]    .tl-content { border-left-color: var(--amber); }
 
     /* ── Venue ── */
@@ -525,22 +522,13 @@
 
         <div class="legend">
           <div class="legend-item">
-            <div class="legend-dot" style="background:var(--accent)"></div>Talk
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot" style="background:var(--violet)"></div>Pitches
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot" style="background:var(--pink)"></div>Demo
+            <div class="legend-dot" style="background:var(--accent)"></div>Talks / Pitches / Demos
           </div>
           <div class="legend-item">
             <div class="legend-dot" style="background:var(--cyan)"></div>Tutorial / Hacking
           </div>
           <div class="legend-item">
-            <div class="legend-dot" style="background:var(--green)"></div>Food
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot" style="background:var(--orange)"></div>Networking
+            <div class="legend-dot" style="background:var(--green)"></div>Food / Networking
           </div>
           <div class="legend-item">
             <div class="legend-dot" style="background:var(--red)"></div>Deadline
@@ -657,6 +645,12 @@
               <span class="tl-time">12:30</span>
               <div class="tl-content">
                 <div class="tl-title">Lunch</div>
+              </div>
+            </div>
+            <div class="timeline-item" data-type="hackathon">
+              <span class="tl-time">13:30</span>
+              <div class="tl-content">
+                <div class="tl-title">Hacking Continues</div>
               </div>
             </div>
             <div class="timeline-item" data-type="deadline">
